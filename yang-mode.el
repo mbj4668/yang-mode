@@ -304,11 +304,11 @@
             (backward-paragraph)
             (if (< (point) (car limits))
                 ;; do this in the first paragraph of a string
-                (progn
-                  (goto-char (+ 1 (car limits)))
+                (let ((first-char (+ 1 (car limits))))
+                  (goto-char first-char)
                   (beginning-of-line)
-                  (setq col (- (car limits) (point)))
-                  (goto-char (+ 1 (car limits)))
+                  (setq col (- first-char (point)))
+                  (goto-char first-char)
                   (setq tmppoint (point))
                   (insert-char ?\n)
                   (insert-char ?\s col))
