@@ -300,14 +300,19 @@
           (tmppoint nil)
           (col nil))
       (if (eq (c-literal-type limits) 'string)
-          (progn
-            (goto-char (+ 1 (car limits)))
-            (beginning-of-line)
-            (setq col (- (car limits) (point)))
-            (goto-char (+ 1 (car limits)))
-            (setq tmppoint (point))
-            (insert-char ?\n)
-            (insert-char ?\s col)))
+          (let ((curpoint (point)))
+            (backward-paragraph)
+            (if (< (point) (car limits))
+                ;; do this in the first paragraph of a string
+                (progn
+                  (goto-char (+ 1 (car limits)))
+                  (beginning-of-line)
+                  (setq col (- (car limits) (point)))
+                  (goto-char (+ 1 (car limits)))
+                  (setq tmppoint (point))
+                  (insert-char ?\n)
+                  (insert-char ?\s col))
+              (goto-char curpoint))))
       (c-fill-paragraph arg)
       (if tmppoint
           (progn
