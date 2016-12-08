@@ -1,4 +1,4 @@
-;;; yang-mode.el
+;;; yang-mode.el --- major mode for editing YANG files
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -16,13 +16,14 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;; Author: Martin Bjorklund <mbj4668@gmail.com>
+;; Version: 00.8
 
 ;;; Commentary:
 
 ;; Note: The interface used in this file requires CC Mode 5.30 or
 ;; later.
 
-;; Version:
+;; History:
 ;;   00.8 - 2016-10-27
 ;;        rfc7950 compliant
 ;;        added yang-fill-paragraph for better string fill
@@ -37,7 +38,7 @@
 ;;        classify all keywords as decl-start gives better indentation
 ;;   00.4 - 2010-04-30
 ;;        draft-ietf-netmod-yang-12 compliant,
-;;        added instructions for emacs 23
+;;        added instructions for Emacs 23
 ;;   00.3 - 2009-12-19
 ;;        draft-ietf-netmod-yang-09 compliant,
 ;;   00.2 - 2008-11-04
@@ -47,16 +48,16 @@
 
 ;; Useful tips:
 ;;
-;;   For use with emacs 23, put this in your .emacs:
+;;   For use with Emacs 23, put this in your .emacs:
 ;;     (autoload 'yang-mode "yang-mode" "Major mode for editing YANG modules."
 ;;               t)
 ;;     (add-to-list 'auto-mode-alist '("\\.yang$" . yang-mode))
 ;;
-;;   Some users have reported other errors with emacs 23, and have found
+;;   Some users have reported other errors with Emacs 23, and have found
 ;;   that removing the byte-compiled cc-mode.elc file fixes these problems.
 ;;   (e.g. /usr/share/emacs/23.1/lisp/progmodes/cc-mode.elc)
 ;;
-;;   For use with emacs 22, just use:
+;;   For use with Emacs 22, just use:
 ;;     (require 'yang-mode nil t)
 ;;
 ;;   For editing somewhat larger YANG modules, add this to your .emacs
@@ -64,7 +65,7 @@
 ;;
 ;;   Common YANG layout:
 ;;     (defun my-yang-mode-hook ()
-;;       "Configuration for YANG Mode. Add this to `yang-mode-hook'."
+;;       "Configuration for YANG Mode.  Add this to `yang-mode-hook'."
 ;;       (if window-system
 ;;         (progn
 ;;           (c-set-style "BSD")
@@ -260,13 +261,13 @@
   "Default expressions to highlight in YANG mode.")
 
 (defvar yang-mode-syntax-table nil
-  "Syntax table used in yang-mode buffers.")
+  "Syntax table used in `yang-mode' buffers.")
 (or yang-mode-syntax-table
     (setq yang-mode-syntax-table
           (funcall (c-lang-const c-make-mode-syntax-table yang))))
 
 (defvar yang-mode-abbrev-table nil
-  "Abbreviation table used in yang-mode buffers.")
+  "Abbreviation table used in `yang-mode' buffers.")
 (c-define-abbrev-table 'yang-mode-abbrev-table
   ;; Keywords that if they occur first on a line might alter the
   ;; syntactic context, and which therefore should trig reindentation
@@ -276,7 +277,7 @@
 (defvar yang-mode-map (let ((map (c-make-inherited-keymap)))
                       ;; Add bindings which are only useful for YANG
                       map)
-  "Keymap used in yang-mode buffers.")
+  "Keymap used in `yang-mode' buffers.")
 
 (easy-menu-define yang-menu yang-mode-map "YANG Mode Commands"
                   ;; Can use `yang' as the language for `c-mode-menu'
@@ -287,7 +288,9 @@
                   (cons "YANG" (c-lang-const c-mode-menu yang)))
 
 (defun yang-fill-paragraph (&optional arg)
-  "Like \\[c-fill-paragraph] but handles first line in strings properly."
+  "Like \\[c-fill-paragraph] but handles first line in strings properly.
+
+   Optional prefix ARG means justify paragraph as well."
   ;; c-fill-paragraph narrows the region to the contents of a string
   ;; before filling, and this means that the start quote character
   ;; will be in column 1 in the narrowed region.  Thus the first line
@@ -375,4 +378,4 @@ Key bindings:
 
 (provide 'yang-mode)
 
-;;; yang.el ends here
+;;; yang-mode.el ends here
