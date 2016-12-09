@@ -16,7 +16,7 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;; Author: Martin Bjorklund <mbj4668@gmail.com>
-;; Version: 00.8
+;; Version: 00.9
 
 ;;; Commentary:
 
@@ -24,6 +24,8 @@
 ;; later.
 
 ;; History:
+;;   00.9 - 2016-12-09
+;;        workaround Emacs bug #18845 (for 24.4)
 ;;   00.8 - 2016-10-27
 ;;        rfc7950 compliant
 ;;        added yang-fill-paragraph for better string fill
@@ -136,6 +138,11 @@
   ;; This needs to be done also at compile time since the language
   ;; constants are evaluated then.
   (c-add-language 'yang-mode 'java-mode))
+
+;; Work around Emacs bug #18845, cc-mode expects cl to be loaded
+(eval-and-compile
+  (if (and (= emacs-major-version 24) (= emacs-minor-version 4))
+    (require 'cl)))
 
 ;; YANG has no primitive types in the C/Java sense.
 (c-lang-defconst c-primitive-type-kwds
