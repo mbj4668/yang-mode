@@ -16,7 +16,7 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;; Author: Martin Bjorklund <mbj4668@gmail.com>
-;; Version: 0.9.1
+;; Version: 0.9.2
 
 ;;; Commentary:
 
@@ -24,6 +24,8 @@
 ;; later.
 
 ;; History:
+;;   0.9.2 - 2016-12-13
+;;        derive mode from prog-mode in order to get correct hook behavior
 ;;   0.9.1 - 2016-12-12
 ;;        use define-derived-mode
 ;;        yang-fill-paragraph now works in Emacs 23
@@ -82,9 +84,8 @@
 ;;
 ;;     (add-hook 'yang-mode-hook 'my-yang-mode-hook)
 ;;
-;;   Use the oultine minor mode for YANG.
-;;   This is very useful to get a good overview of the structure of
-;;   a module.
+;;   Using the oultine minor mode for YANG is very useful to get a
+;;   good overview of the structure of a module.
 ;;
 ;;   Put this in your .emacs:
 ;;
@@ -333,7 +334,7 @@
 (add-to-list 'auto-mode-alist '("\\.yang\\'" . yang-mode))
 
 ;;;###autoload
-(define-derived-mode yang-mode c-mode "YANG"
+(define-derived-mode yang-mode prog-mode "YANG"
   "Major mode for editing YANG modules.
 
 The hook `c-mode-common-hook' is run with no args at mode
@@ -351,7 +352,11 @@ Key bindings:
   ;; Install `yang-fill-paragraph' on `fill-paragraph-function' so
   ;; that a direct call to `fill-paragraph' behaves better.
   (make-local-variable fill-paragraph-function)
-  (setq fill-paragraph-function 'yang-fill-paragraph))
+  (setq fill-paragraph-function 'yang-fill-paragraph)
+  ;; we derive from prog-mode rather than c-mode in order to not run
+  ;; c-mode-hooks; this means that we need to run c-mode-common-hook
+  ;; explicitly.
+  (c-run-mode-hooks 'c-mode-common-hook))
 
 (provide 'yang-mode)
 
