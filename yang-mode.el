@@ -16,7 +16,7 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;; Author: Martin Bjorklund <mbj4668@gmail.com>
-;; Version: 0.9.2
+;; Version: 0.9.3
 
 ;;; Commentary:
 
@@ -24,6 +24,8 @@
 ;; later.
 
 ;; History:
+;;   0.9.3 - 2016-12-13
+;;        derive from nil
 ;;   0.9.2 - 2016-12-13
 ;;        derive mode from prog-mode in order to get correct hook behavior
 ;;   0.9.1 - 2016-12-12
@@ -334,7 +336,7 @@
 (add-to-list 'auto-mode-alist '("\\.yang\\'" . yang-mode))
 
 ;;;###autoload
-(define-derived-mode yang-mode prog-mode "YANG"
+(define-derived-mode yang-mode nil "YANG"
   "Major mode for editing YANG modules.
 
 The hook `c-mode-common-hook' is run with no args at mode
@@ -353,7 +355,7 @@ Key bindings:
   ;; that a direct call to `fill-paragraph' behaves better.
   (make-local-variable fill-paragraph-function)
   (setq fill-paragraph-function 'yang-fill-paragraph)
-  ;; we derive from prog-mode rather than c-mode in order to not run
+  ;; we derive from nil rather than c-mode in order to not run
   ;; c-mode-hooks; this means that we need to run c-mode-common-hook
   ;; explicitly.
   (c-run-mode-hooks 'c-mode-common-hook))
