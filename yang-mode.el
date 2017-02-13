@@ -16,7 +16,7 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;; Author: Martin Bjorklund <mbj4668@gmail.com>
-;; Version: 0.9.4
+;; Version: 0.9.5
 
 ;;; Commentary:
 
@@ -24,6 +24,8 @@
 ;; later.
 
 ;; History:
+;;   0.9.5 - 2017-02-13
+;;        autoload fix
 ;;   0.9.4 - 2016-12-20
 ;;        derive from prog-mode if available, otherwise nil
 ;;        use proper syntax-table
@@ -345,6 +347,7 @@
 (add-to-list 'auto-mode-alist '("\\.yang\\'" . yang-mode))
 
 ;; derive from prog-mode if it is defined
+;;;###autoload
 (if (fboundp 'prog-mode)
     (defmacro yang-define-derived-mode (mode &rest args)
       `(define-derived-mode ,mode prog-mode ,@args))
