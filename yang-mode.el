@@ -16,7 +16,7 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;; Author: Martin Bjorklund <mbj4668@gmail.com>
-;; Version: 0.9.5
+;; Version: 0.9.6
 
 ;;; Commentary:
 
@@ -24,6 +24,8 @@
 ;; later.
 
 ;; History:
+;;   0.9.6 - 2017-03-21
+;;        autoload fix, tested with use-package
 ;;   0.9.5 - 2017-02-13
 ;;        autoload fix
 ;;   0.9.4 - 2016-12-20
@@ -62,7 +64,11 @@
 
 ;; Useful tips:
 ;;
-;;   Put this in your .emacs:
+;;   If you're using use-package, put this in your .emacs:
+;;     (use-package yang-mode
+;;       :ensure t)
+;;
+;;   Otherwise, put this in your .emacs:
 ;;     (require 'yang-mode)
 ;;
 ;;   For use with Emacs 23, put this in your .emacs:
@@ -347,14 +353,13 @@
 (add-to-list 'auto-mode-alist '("\\.yang\\'" . yang-mode))
 
 ;; derive from prog-mode if it is defined
-;;;###autoload
 (if (fboundp 'prog-mode)
     (defmacro yang-define-derived-mode (mode &rest args)
       `(define-derived-mode ,mode prog-mode ,@args))
   (defmacro yang-define-derived-mode (mode &rest args)
     `(define-derived-mode ,mode nil ,@args)))
 
-;;;###autoload
+;;;###autoload(autoload 'yang-mode "yang-mode" "" t nil)
 (yang-define-derived-mode yang-mode "YANG"
   "Major mode for editing YANG modules.
 
