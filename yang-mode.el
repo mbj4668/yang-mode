@@ -16,7 +16,7 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;; Author: Martin Bjorklund <mbj4668@gmail.com>
-;; Version: 0.9.6
+;; Version: 0.9.7
 
 ;;; Commentary:
 
@@ -24,6 +24,8 @@
 ;; later.
 
 ;; History:
+;;   0.9.7 - 2017-03-23
+;;        one more autoload fix
 ;;   0.9.6 - 2017-03-21
 ;;        autoload fix, tested with use-package
 ;;   0.9.5 - 2017-02-13
