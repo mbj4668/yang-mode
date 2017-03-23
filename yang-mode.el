@@ -349,9 +349,6 @@
 (substitute-key-definition 'c-fill-paragraph 'yang-fill-paragraph
                            yang-mode-map c-mode-map)
 
-;;;###autoload
-(add-to-list 'auto-mode-alist '("\\.yang\\'" . yang-mode))
-
 ;; derive from prog-mode if it is defined
 (if (fboundp 'prog-mode)
     (defmacro yang-define-derived-mode (mode &rest args)
@@ -384,6 +381,9 @@ Key bindings:
   ;; c-mode-hooks; this means that we need to run c-mode-common-hook
   ;; explicitly.
   (c-run-mode-hooks 'c-mode-common-hook))
+
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\\.yang\\'" . yang-mode))
 
 (provide 'yang-mode)
 
