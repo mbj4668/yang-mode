@@ -157,7 +157,13 @@
   ;; mode as the fallback for the constants we don't change here.
   ;; This needs to be done also at compile time since the language
   ;; constants are evaluated then.
-  (c-add-language 'yang-mode 'java-mode))
+  (c-add-language 'yang-mode 'java-mode)
+
+  ;; compatibility with emacs < 24
+  (defalias 'yang-mode-prog-mode
+    (if (fboundp 'prog-mode) 'prog-mode 'fundamental-mode))
+  )
+
 
 ;; Work around Emacs bug #18845, cc-mode expects cl to be loaded
 (eval-and-compile
@@ -351,15 +357,8 @@
 (substitute-key-definition 'c-fill-paragraph 'yang-fill-paragraph
                            yang-mode-map c-mode-map)
 
-;; derive from prog-mode if it is defined
-(if (fboundp 'prog-mode)
-    (defmacro yang-define-derived-mode (mode &rest args)
-      `(define-derived-mode ,mode prog-mode ,@args))
-  (defmacro yang-define-derived-mode (mode &rest args)
-    `(define-derived-mode ,mode nil ,@args)))
-
-;;;###autoload(autoload 'yang-mode "yang-mode" "" t nil)
-(yang-define-derived-mode yang-mode "YANG"
+;;;###autoload
+(define-derived-mode yang-mode yang-mode-prog-mode "YANG"
   "Major mode for editing YANG modules.
 
 The hook `c-mode-common-hook' is run with no args at mode
