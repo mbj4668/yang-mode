@@ -16,7 +16,7 @@
 ;; Boston, MA 02111-1307, USA.
 
 ;; Author: Martin Bjorklund <mbj4668@gmail.com>
-;; Version: 0.9.7
+;; Version: 0.9.8
 
 ;;; Commentary:
 
@@ -24,6 +24,8 @@
 ;; later.
 
 ;; History:
+;;   0.9.8 - 2018-03-06
+;;        yet another autoload fix; contributed by Christian Hopps
 ;;   0.9.7 - 2017-03-23
 ;;        one more autoload fix
 ;;   0.9.6 - 2017-03-21
@@ -99,7 +101,7 @@
 ;;
 ;;     (add-hook 'yang-mode-hook 'my-yang-mode-hook)
 ;;
-;;   Using the oultine minor mode for YANG is very useful to get a
+;;   Using the outline minor mode for YANG is very useful to get a
 ;;   good overview of the structure of a module.
 ;;
 ;;   Put this in your .emacs:
