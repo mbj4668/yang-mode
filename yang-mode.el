@@ -179,6 +179,9 @@
 (c-lang-defconst c-modifier-kwds
   yang '())
 
+(c-lang-defconst c-multiline-string-start-char
+  yang t)
+
 (c-lang-defconst c-label-kwds
   yang '())
 
