@@ -147,6 +147,7 @@
 ;;; Code:
 
 (require 'cc-mode)
+(require 'js)
 
 ;; These are only required at compile time to get the sources for the
 ;; language constants.  (The cc-fonts require and the font-lock
@@ -158,11 +159,11 @@
   (require 'cc-fonts))
 
 (eval-and-compile
-  ;; Make our mode known to the language constant system.  Use Java
-  ;; mode as the fallback for the constants we don't change here.
-  ;; This needs to be done also at compile time since the language
-  ;; constants are evaluated then.
-  (c-add-language 'yang-mode 'java-mode)
+  ;; Make our mode known to the language constant system.  Use JavaScript
+  ;; mode as the fallback for the constants we don't change here.  This
+  ;; needs to be done also at compile time since the language constants
+  ;; are evaluated then.
+  (c-add-language 'yang-mode 'js-mode)
 
   ;; compatibility with emacs < 24
   (defalias 'yang-mode-prog-mode
