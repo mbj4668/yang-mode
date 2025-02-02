@@ -1,4 +1,4 @@
-;;; yang-mode.el --- major mode for editing YANG files
+;;; yang-mode.el --- Emacs major mode for editing YANG files -*- lexical-binding: t; -*-
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
